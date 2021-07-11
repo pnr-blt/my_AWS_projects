@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  This templatelaunches an EC2 that enables SSH
+Resources:
+  MyEc2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0ab4d1e9cf9a1215a
+      InstanceType: t2.micro
+      KeyName: ec2_key
+      SecurityGroups:
+        - allow ssh and http
+      Tags:
+        - Key: Name
+          Value: Pınar-cf
+      UserData: 
+         Fn::Base64: |
+            #! /bin/bash
+
+            yum update -y
+            yum install -y httpd
+            chmod -R 777 /var/www/html
+            cd /var/www/html
+            wget https://raw.githubusercontent.com/pnr-blt/my_AWS_projects/main/Project-101-kittens-carousel-static-website-ec2/static-web/index.html
+            wget https://raw.githubusercontent.com/pnr-blt/my_AWS_projects/main/Project-101-kittens-carousel-static-website-ec2/static-web/cat0.jpg
+            wget https://raw.githubusercontent.com/pnr-blt/my_AWS_projects/main/Project-101-kittens-carousel-static-website-ec2/static-web/cat1.jpg
+            wget https://raw.githubusercontent.com/pnr-blt/my_AWS_projects/main/Project-101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
+            wget https://raw.githubusercontent.com/pnr-blt/my_AWS_projects/main/Project-101-kittens-carousel-static-website-ec2/static-web/cat3.png
+            systemctl start httpd
+            systemctl enable httpd
+   
