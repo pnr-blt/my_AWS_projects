@@ -1,0 +1,9 @@
+script: 
+  echo "hello world"
+  export PROFİLE="teacher"
+  echo $PROFİLE
+paragraph: >
+  this line 
+  will be 
+  in single 
+  line.
